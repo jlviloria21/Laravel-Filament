@@ -68,6 +68,12 @@ class UserForm
                             $set('city_id', null);
                         })
                         ->required(),
+                     TextInput::make('address')
+                        ->label('Address')
+                        ->required(),
+                         TextInput::make('postal_code')
+                        ->label('Postal Code')
+                        ->required(),
 
                 ])->columns(3)
                 ->columnSpan('full')
