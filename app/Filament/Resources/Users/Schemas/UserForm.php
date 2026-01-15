@@ -7,10 +7,11 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Schemas\Schema;
 use Filament\Schemas\Components\Section;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Illuminate\Support\Collection;
 use App\Models\State;
+use App\Models\City;
 
 class UserForm
 {
@@ -29,6 +30,7 @@ class UserForm
                     DateTimePicker::make('email_verified_at'),
                     TextInput::make('password')
                         ->password()
+                        ->hiddenOn('edit')
                         ->required(),
                 ])->columns(4)
                 ->columnSpan('full'),
@@ -40,18 +42,37 @@ class UserForm
                         ->searchable()
                         ->preload()
                         ->live()
-                        ->afterStateUpdated(fn (Set $set) => $set('state_id', null)) // limpia el segundo select
+                        ->afterStateUpdated(function (Set $set) {
+                            $set('state_id', null);
+                            $set('city_id', null);
+                        })
                         ->required(),
 
-                        Select::make('state_id')
-                            ->options(fn (Get $get): Collection => $get('country_id')
-                            ? State::where('country_id', $get('country_id'))
-                                ->pluck('name', 'id')
-                            : collect())
-                            ->searchable()
-                            ->preload()
-                            ->live()
-                            ->required(),
+                    Select::make('state_id')
+                        ->options(fn (Get $get): Collection => $get('country_id')
+                        ? State::where('country_id', $get('country_id'))
+                            ->pluck('name', 'id')
+                        : collect())
+                        ->searchable()
+                        ->preload()
+                        ->required(),
+
+                    Select::make('city_id')
+                        ->options(fn (Get $get): Collection => $get('state_id')
+                        ? City::where('state_id', $get('state_id'))
+                            ->pluck('name', 'id')
+                        : collect())
+                        ->searchable()
+                        ->preload()
+                        ->live()
+                        ->required(),
+                     TextInput::make('address')
+                        ->label('Address')
+                        ->required(),
+                         TextInput::make('postal_code')
+                        ->label('Postal Code')
+                        ->required(),
+
                 ])->columns(3)
                 ->columnSpan('full')
             ]);
