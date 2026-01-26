@@ -5,9 +5,13 @@ namespace App\Filament\Resources\Timesheets\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Actions\Action;
+
 
 class TimesheetsTable
 {
@@ -15,20 +19,24 @@ class TimesheetsTable
     {
         return $table
             ->columns([
-                TextColumn::make('calendar_id')
+                TextColumn::make('calendar.name')
                     ->numeric()
-                    ->sortable(),
-                TextColumn::make('user_id')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('user.name')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('type')
                     ->searchable(),
                 TextColumn::make('day_in')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('day_out')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -39,11 +47,16 @@ class TimesheetsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('type')
+                ->options([
+                    'work' => 'Working',
+                    'pause' => 'In pause',
+                ])
             ])
             ->recordActions([
-                ViewAction::make(),
+                //ViewAction::make(),
                 EditAction::make(),
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

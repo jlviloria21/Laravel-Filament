@@ -11,6 +11,7 @@ use App\Filament\Resources\Calendars\Schemas\CalendarInfolist;
 use App\Filament\Resources\Calendars\Tables\CalendarsTable;
 use App\Models\Calendar;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -20,9 +21,13 @@ class CalendarResource extends Resource
 {
     protected static ?string $model = Calendar::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar-days';
 
     protected static ?string $recordTitleAttribute = 'Calendars';
+
+    protected static string|UnitEnum|null $navigationGroup = 'System Management';
+
+    protected static int|null $navigationSort = 7;
 
     public static function form(Schema $schema): Schema
     {

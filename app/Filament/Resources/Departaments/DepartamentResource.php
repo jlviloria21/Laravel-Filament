@@ -11,6 +11,7 @@ use App\Filament\Resources\Departaments\Schemas\DepartamentInfolist;
 use App\Filament\Resources\Departaments\Tables\DepartamentsTable;
 use App\Models\Departament;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -20,9 +21,13 @@ class DepartamentResource extends Resource
 {
     protected static ?string $model = Departament::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-building-office';
 
     protected static ?string $recordTitleAttribute = 'Departaments';
+
+    protected static string|UnitEnum|null $navigationGroup = 'System Management';
+
+    protected static int|null $navigationSort = 8;
 
     public static function form(Schema $schema): Schema
     {

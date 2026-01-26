@@ -11,6 +11,7 @@ use App\Filament\Resources\Timesheets\Schemas\TimesheetInfolist;
 use App\Filament\Resources\Timesheets\Tables\TimesheetsTable;
 use App\Models\Timesheet;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -20,7 +21,8 @@ class TimesheetResource extends Resource
 {
     protected static ?string $model = Timesheet::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    //protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-clock';
 
     protected static ?string $recordTitleAttribute = 'Timesheet';
 
