@@ -26,6 +26,10 @@ class TimesheetResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'Timesheet';
 
+    protected static string|UnitEnum|null $navigationGroup = 'Employees Management';
+    
+    protected static int|null $navigationSort = 3;
+
     public static function form(Schema $schema): Schema
     {
         return TimesheetForm::configure($schema);
