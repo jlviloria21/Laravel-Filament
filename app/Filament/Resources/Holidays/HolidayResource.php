@@ -11,6 +11,7 @@ use App\Filament\Resources\Holidays\Schemas\HolidayInfolist;
 use App\Filament\Resources\Holidays\Tables\HolidaysTable;
 use App\Models\Holiday;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -20,9 +21,14 @@ class HolidayResource extends Resource
 {
     protected static ?string $model = Holiday::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar-days';
 
     protected static ?string $recordTitleAttribute = 'Holiday';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Employees Management';
+    
+    protected static int|null $navigationSort = 4;
+    
 
     public static function form(Schema $schema): Schema
     {
